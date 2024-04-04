@@ -1,11 +1,60 @@
 import "./App.css";
+import { useMultistepForm } from "./useMultistepForm";
 
 function App() {
+     const {
+          currentStepIndex,
+          steps,
+          step,
+          isFirstStep,
+          back,
+          next,
+          isLastStep,
+     } = useMultistepForm([<p>one</p>, <p>two</p>, <p>three</p>]);
      return (
           <>
-               <p className="read-the-docs">
-                    Click on the Vite and React logos to learn more
-               </p>
+               <div
+                    style={{
+                         position: "relative",
+                         background: "white",
+                         border: "1px solid black",
+                         padding: "2rem",
+                         margin: "1rem",
+                         borderRadius: ".5rem",
+                         fontFamily: "Arial",
+                    }}
+               >
+                    <form action="">
+                         <div
+                              style={{
+                                   position: "absolute",
+                                   top: ".5rem",
+                                   right: ".5rem",
+                              }}
+                         >
+                              {currentStepIndex + 1}/{steps.length}
+                         </div>
+                         {step}
+                         <div
+                              style={{
+                                   marginTop: "1rem",
+                                   display: "flex",
+                                   gap: ".5rem",
+                                   justifyContent: "flex-end",
+                              }}
+                         >
+                              {!isFirstStep && (
+                                   <button onClick={back} type="button">
+                                        Back
+                                   </button>
+                              )}
+
+                              <button onClick={next} type="button">
+                                   {isLastStep ? "Finish" : "Next"}
+                              </button>
+                         </div>
+                    </form>
+               </div>
           </>
      );
 }
